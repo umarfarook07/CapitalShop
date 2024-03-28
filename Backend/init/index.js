@@ -3,10 +3,7 @@ const mensCollection = require('./data.js');
 const Product = require('../Models/product.js');
 require('dotenv').config();
 
-
-
-
-const mongoURI = process.env.DATABASE_URL || 'mongodb://localhost:27017/Capital-Shop'
+const mongoURI = 'mongodb://localhost:27017/Capital-Shop'
 
 async function main() {
   try {
@@ -14,6 +11,8 @@ async function main() {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
+    
+    await initDB();
     console.log('Connected to MongoDB');
   } catch (err) {
     console.error('Failed to connect to MongoDB', err);
@@ -29,4 +28,3 @@ const initDB = async () =>{
   console.log('Product was saved successfully');
 }
 
-initDB();
