@@ -17,6 +17,28 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
+const users = [];
+
+app.post('/login', (req, res) => {
+  const {email, password} = req.body;
+  users.forEach(user => {
+    if (user.email === email && user.password === password) {
+      res.send('Welcome to your new account at ' + email + ' with ' + password);
+    }
+    res.send(
+      'Sorry, you are not authorized to access this resource. Please try again.'
+    )
+  })
+});
+
+app.post('/register', (req, res) => {
+  const {email, password} = req.body;
+  users.push({email: email, password: password});
+  res.json({ message: 'user added successfully' });
+});
+app.get('/users', (req, res) => {
+  res.json(users);
+})
 app.get('/products', async (req, res) => {
   try {
     console.log("Fetching products...");
